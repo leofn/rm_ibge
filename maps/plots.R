@@ -12,14 +12,14 @@ ggplot() +
   labs(title = "Regiões Metropolitanas, Aglomerações Urbanas e RIDEs - Brasil (CEM 2020)")
 
 
+
 library(leaflet)
 
-pal <- colorFactor(palette = "Set3", domain = cem_rm$NOME_AC)
+pal <- colorFactor("Set3", domain = cem_rm$UF_SIGLA)
 
 leaflet(cem_rm) %>%
   addProviderTiles("CartoDB.Positron") %>%
-  addPolygons(color = "black", weight = 0.5, smoothFactor = 0.2,
-              fillOpacity = 0.6, fillColor = ~pal(NOME_AC),
-              popup = ~paste("<b>", NOME_AC, "</b><br>UF:", UF_SIGLA, "<br>Tipo:", TIPO, "<br>Polo:", POLO)) %>%
-  addLegend("bottomleft", pal = pal, values = cem_rm$NOME_AC,
-            title = "RMs / AUs / RIDEs", opacity = 0.7)
+  addPolygons(color = "black", weight = 0.5, fillOpacity = 0.6,
+              fillColor = ~pal(UF_SIGLA),
+              popup = ~paste("<b>", NOME_AC, "</b><br>UF:", UF_SIGLA,
+                             "<br>Tipo:", TIPO, "<br>Polo:", POLO))
